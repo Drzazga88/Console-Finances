@@ -105,11 +105,12 @@ let numberMonths = finances.length; //.length property allows to find the length
 console.log(`The number of months in this report is ${numberMonths}.`);
 
 // - The net total amount of Profit/Losses over the entire period.
-let total = 0;
+let total = 0; //sets initial value to 0 in order to be able to count the total net amount over entire period of time
 let monthlyChange = 0;
 
 for (i = 0; i < finances.length; i++) {
-  total = total + finances[i][1];
+  // i=0 because we are looking for the total amount of money earned/lost during the entire period of time
+  total = total + finances[i][1]; //1st month --> total = 0 + 867884, 2nd month --> total = 867884 + 984655
 }
 
 console.log(`The net total amount of profit/losses is $${total}.`);
@@ -120,15 +121,16 @@ console.log(`The net total amount of profit/losses is $${total}.`);
 // - The greatest increase in profits (date and amount) over the entire period.
 // - The greatest decrease in losses (date and amount) over the entire period.
 let sum = 0;
-let greatestIncrease = 0;
-let greatestDecrease = 0;
+let greatestIncrease = 0; //sets initial value to 0 in order to be able to compare results in the loop below
+let greatestDecrease = 0; //same
 let greatestIncreaseDate = finances[0][0];
 let greatestDecreaseDate = finances[0][0];
 for (i = 1; i < finances.length; i++) {
-  //i=1 to exclude index 0 - first month where there are no changes in profit/loss
-  monthlyChange = finances[i][1] - finances[i - 1][1];
-  sum = sum + monthlyChange;
+  //i=1 to exclude index 0 - first month where there are no changes in profit/loss (if i=0, code crushes as [i-1] cannot work for the first loop as it refers to row which does not exist)
+  monthlyChange = finances[i][1] - finances[i - 1][1]; // this equation counts the change in profit/loss between previous and current month
+  sum = sum + monthlyChange; //this equation sums all monthly changes
   if (monthlyChange > greatestIncrease) {
+    //in the 1st loop monthly change for 2nd/1st months is 116,771 and greatest increase is 0 (set previously), for 2nd loop the monthly change for 3rd/2nd months is -662,642 and this value is compared to greatest increase which is now 116,771; and so on
     greatestIncrease = monthlyChange;
     greatestIncreaseDate = finances[i][0];
   } else if (monthlyChange < greatestDecrease) {
