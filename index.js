@@ -10,10 +10,11 @@
 
 // CODE
 // finances - 1st column - date, 2nd column - profit/loss
+//                        (index)   0            1
 var finances = [
-  ["Jan-2010", 867884],
-  ["Feb-2010", 984655],
-  ["Mar-2010", 322013],
+  ["Jan-2010", 867884], // 0        "Jan-2010"   867884
+  ["Feb-2010", 984655], // 1        "Feb-2010"   984655
+  ["Mar-2010", 322013], // 2 and so on so finances[1][1] returns 984655
   ["Apr-2010", -69417],
   ["May-2010", 310503],
   ["Jun-2010", 522857],
@@ -107,6 +108,8 @@ console.log(`The number of months in this report is ${numberMonths}.`);
 let profits = 0;
 let losses = 0;
 let total = 0;
+let monthlyChange = 0;
+
 
 for (i = 0; i < numberMonths; i++) {
   total = total + finances[i][1];
@@ -117,3 +120,10 @@ console.log(`The net total amount of profit/losses is $${total}.`);
 // - The average of the changes in Profit/Losses over the entire period.
 //   - You will need to track what the total change in profits is from month to month and then find the average.
 //   - (Total/Number of months)
+for (i = 0; i < numberMonths; i++) {
+  monthlyChange = finances[i][1] - finances[0][1];
+}
+console.log(`Sum of monthly changes in profits/losses is $${monthlyChange}.`);
+
+let average = monthlyChange/(finances.length - 1);
+console.log(`Average change in profits/losses was $${average.toFixed(2)}.`)
