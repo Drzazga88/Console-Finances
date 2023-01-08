@@ -105,13 +105,10 @@ let numberMonths = finances.length; //.length property allows to find the length
 console.log(`The number of months in this report is ${numberMonths}.`);
 
 // - The net total amount of Profit/Losses over the entire period.
-let profits = 0;
-let losses = 0;
 let total = 0;
 let monthlyChange = 0;
 
-
-for (i = 0; i < numberMonths; i++) {
+for (i = 0; i < finances.length; i++) {
   total = total + finances[i][1];
 }
 
@@ -120,10 +117,41 @@ console.log(`The net total amount of profit/losses is $${total}.`);
 // - The average of the changes in Profit/Losses over the entire period.
 //   - You will need to track what the total change in profits is from month to month and then find the average.
 //   - (Total/Number of months)
-for (i = 0; i < numberMonths; i++) {
-  monthlyChange = finances[i][1] - finances[0][1];
+let sum = 0;
+for (i = 1; i < finances.length; i++) {
+  monthlyChange = finances[i][1] - finances[i - 1][1];
+  sum = sum + monthlyChange;
 }
-console.log(`Sum of monthly changes in profits/losses is $${monthlyChange}.`);
+console.log(`Sum of monthly changes in profits/losses is $${sum}.`);
 
-let average = monthlyChange/(finances.length - 1);
-console.log(`Average change in profits/losses was $${average.toFixed(2)}.`)
+let average = sum / (finances.length - 1);
+console.log(`Average change in profits/losses was $${average.toFixed(2)}.`);
+
+// - The greatest increase in profits (date and amount) over the entire period.
+// - The greatest decrease in losses (date and amount) over the entire period.
+let greatestIncrease = 0;
+let greatestDecrease = 0;
+let greatestIncreaseDate = finances[0][0];
+let greatestDecreaseDate = finances[0][0];
+let nowProfit;
+let lastProfit;
+
+for (i = 1; i < finances.length; i++) {
+  nowProfit = finances[i][1];
+  lastProfit = finances[i - 1][1];
+  let lastMonthChange = nowProfit - lastProfit;
+
+  if (lastMonthChange > greatestIncrease) {
+    greatestIncrease = lastMonthChange;
+    greatestIncreaseDate = finances[i][0];
+  } else if (lastMonthChange < greatestDecrease) {
+    greatestDecrease = lastMonthChange;
+    greatestDecreaseDate = finances[i][0];
+  }
+}
+console.log(
+  `The greatest increase in profits was on ${greatestIncreaseDate} and the value was $${greatestIncrease}.`
+);
+console.log(
+  `The greatest decrease in profits was on ${greatestDecreaseDate} and the value was $${greatestDecrease}.`
+);
