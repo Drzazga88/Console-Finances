@@ -12,14 +12,14 @@ The requirements for calculations were:
 - Find the greatest increase in profits (date and amount) over the entire period.
 - Find the greatest decrease in profits (date and amount) over the entire period.
 
-** Code contains comprehensive thinking process. **
+**Code contains comprehensive thinking process.**
 
 ### Usage
 
 To see the results of the report, open HTML file in the browser and inspect to get to the console.
 ![Results](./assets/Screenshot%202023-01-08%20at%2016.33.28.png)
 
-** In the assets folder you can find an Excel with calculations as a supporting document. **
+**In the assets folder you can find an Excel with calculations as a supporting document.**
 
 ### License
 
