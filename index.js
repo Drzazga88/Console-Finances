@@ -117,38 +117,32 @@ console.log(`The net total amount of profit/losses is $${total}.`);
 // - The average of the changes in Profit/Losses over the entire period.
 //   - You will need to track what the total change in profits is from month to month and then find the average.
 //   - (Total/Number of months)
-let sum = 0;
-for (i = 1; i < finances.length; i++) {
-  monthlyChange = finances[i][1] - finances[i - 1][1];
-  sum = sum + monthlyChange;
-}
-console.log(`Sum of monthly changes in profits/losses is $${sum}.`);
-
-let average = sum / (finances.length - 1);
-console.log(`Average change in profits/losses was $${average.toFixed(2)}.`);
-
 // - The greatest increase in profits (date and amount) over the entire period.
 // - The greatest decrease in losses (date and amount) over the entire period.
+let sum = 0;
 let greatestIncrease = 0;
 let greatestDecrease = 0;
 let greatestIncreaseDate = finances[0][0];
 let greatestDecreaseDate = finances[0][0];
-let nowProfit;
-let lastProfit;
-
 for (i = 1; i < finances.length; i++) {
-  nowProfit = finances[i][1];
-  lastProfit = finances[i - 1][1];
-  let lastMonthChange = nowProfit - lastProfit;
-
-  if (lastMonthChange > greatestIncrease) {
-    greatestIncrease = lastMonthChange;
+  //i=1 to exclude index 0 - first month where there are no changes in profit/loss
+  monthlyChange = finances[i][1] - finances[i - 1][1];
+  sum = sum + monthlyChange;
+  if (monthlyChange > greatestIncrease) {
+    greatestIncrease = monthlyChange;
     greatestIncreaseDate = finances[i][0];
-  } else if (lastMonthChange < greatestDecrease) {
-    greatestDecrease = lastMonthChange;
+  } else if (monthlyChange < greatestDecrease) {
+    greatestDecrease = monthlyChange;
     greatestDecreaseDate = finances[i][0];
   }
 }
+
+let average = sum / (finances.length - 1);
+
+console.log(`Sum of monthly changes in profits/losses is $${sum}.`);
+
+console.log(`Average change in profits/losses was $${average.toFixed(2)}.`);
+
 console.log(
   `The greatest increase in profits was on ${greatestIncreaseDate} and the value was $${greatestIncrease}.`
 );
